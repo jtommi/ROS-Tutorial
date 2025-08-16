@@ -1,0 +1,55 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Check for missing dependencies",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && rosdep install -i --from-path src --rosdistro kilted -y'",
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "close": true
+            }
+        },
+        {
+            "label": "Build my_package",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && colcon build --symlink-install --packages-select my_bot'",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "revealProblems": "onProblem",
+                "close": true
+            },
+            "dependsOn": [
+                "Check for missing dependencies"
+            ]
+        },
+        {
+            "label": "Robot state publisher",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch my_bot robot_state_publisher_launch.py'",
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "RViz2",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && rviz2'",
+            "presentation": {
+                "reveal": "never",
+                "close": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

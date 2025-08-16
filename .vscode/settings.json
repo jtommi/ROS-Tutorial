@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "src/my_bot/test"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
