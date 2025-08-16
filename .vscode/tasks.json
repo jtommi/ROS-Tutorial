@@ -42,6 +42,16 @@
             "problemMatcher": []
         },
         {
+            "label": "Robot state publisher (Sim mode)",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch my_bot robot_state_publisher_launch.py use_sim_time:=true'",
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Joint state publisher GUI",
             "type": "shell",
             "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 run joint_state_publisher_gui joint_state_publisher_gui'",
@@ -55,6 +65,26 @@
             "label": "RViz2",
             "type": "shell",
             "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && rviz2'",
+            "presentation": {
+                "reveal": "never",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Gazebo",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch my_bot gazebo.launch.py'",
+            "presentation": {
+                "reveal": "never",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Spawn entity in Gazebo",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch ros_gz_sim gz_spawn_model.launch.py world:=empty topic:=robot_description entity_name:=bot_name x:=5.0 y:=5.0 z:=0.5'",
             "presentation": {
                 "reveal": "never",
                 "close": true
