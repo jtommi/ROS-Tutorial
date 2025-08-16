@@ -42,6 +42,16 @@
             "problemMatcher": []
         },
         {
+            "label": "Joint state publisher GUI",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 run joint_state_publisher_gui joint_state_publisher_gui'",
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "RViz2",
             "type": "shell",
             "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && rviz2'",
