@@ -20,6 +20,14 @@ setup(
             os.path.join("share", package_name, "description"),
             glob("description/*.xacro"),
         ),
+        (
+            os.path.join("share", package_name, "worlds"),
+            glob("worlds/*.world"),
+        ),
+        (
+            os.path.join("share", package_name, "config"),
+            glob("config/*.yaml"),
+        ),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
