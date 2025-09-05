@@ -4,6 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Run agent for ESP32",
+            "type": "shell",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0'",
+            "problemMatcher": []
+        },
+        {
             "label": "Check for missing dependencies",
             "type": "shell",
             "command": "bash -c 'cd ${workspaceFolder} && source /opt/ros/kilted/setup.bash && rosdep install -i --from-path src --rosdistro kilted -y'",

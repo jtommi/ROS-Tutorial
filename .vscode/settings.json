@@ -3,5 +3,18 @@
         "src/my_bot/test"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python.autoComplete.extraPaths": [
+        "/home/thomas/ros/ROS-Tutorial/install/my_bot/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/thomas/ros/ROS-Tutorial/install/my_bot/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "files.associations": {
+        "*.php": "php",
+        "*.xacro": "xml",
+        "node.h": "c"
+    }
 }
