@@ -17,7 +17,8 @@
                 "reveal": "silent",
                 "revealProblems": "onProblem",
                 "close": true
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Build my_package",
