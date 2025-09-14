@@ -1,14 +1,14 @@
 controller_manager:
   ros__parameters:
-    update_rate: 30
+    update_rate: 1000
 
-    diff_controller:
+    diff_cont:
       type: diff_drive_controller/DiffDriveController
 
     joint_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-diff_controller:
+diff_cont:
   ros__parameters:
     publish_rate: 50.0
     base_frame_id: base_link
@@ -16,6 +16,6 @@ diff_controller:
     right_wheel_names: ["right_wheel_joint"]
     wheel_separation: 0.1
     wheel_radius: 0.05
-    
+
 # joint_broadcaster:
 #    ros__parameters:

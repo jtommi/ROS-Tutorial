@@ -12,6 +12,8 @@ def generate_launch_description():
     package_name = "my_bot"
     package_path = get_package_share_directory(package_name)
 
+    logger = LaunchConfiguration("log_level")
+
     # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
     rsp = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -79,7 +81,7 @@ def generate_launch_description():
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["diff_controller"],
+        arguments=["diff_cont", "--ros-args", "--log-level", logger],
     )
 
     joint_broadcast_spawner = Node(
@@ -124,15 +126,20 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription(
         [
+            DeclareLaunchArgument(
+                "log_level",
+                default_value=["debug"],
+                description="Logging level",
+            ),
             rsp,
             # joystick,
             # twist_mux,
+            ros_gz_bridge,
             world_arg,
             gazebo,
             spawn_entity,
             diff_drive_spawner,
             joint_broadcast_spawner,
-            ros_gz_bridge,
             # ros_gz_image_bridge,
         ]
     )

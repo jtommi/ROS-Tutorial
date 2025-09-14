@@ -51,7 +51,7 @@
         {
             "label": "Robot state publisher (Sim mode)",
             "type": "shell",
-            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch my_bot robot_state_publisher_launch.py use_sim_time:=true'",
+            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 launch my_bot rsp.launch.py use_sim_time:=true'",
             "presentation": {
                 "reveal": "silent",
                 "close": true
