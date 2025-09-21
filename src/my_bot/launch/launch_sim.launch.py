@@ -2,7 +2,12 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import (
+    DeclareLaunchArgument,
+    IncludeLaunchDescription,
+    RegisterEventHandler,
+)
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -35,17 +40,7 @@ def generate_launch_description():
     #     launch_arguments={"use_sim_time": "true"}.items(),
     # )
 
-    # twist_mux_params = os.path.join(
-    #     package_path, "config", "twist_mux.yaml"
-    # )
-    # twist_mux = Node(
-    #     package="twist_mux",
-    #     executable="twist_mux",
-    #     parameters=[twist_mux_params, {"use_sim_time": True}],
-    #     remappings=[("/cmd_vel_out", "/diff_cont/cmd_vel_unstamped")],
-    # )
-
-    default_world = os.path.join(package_path, "worlds", "empty.world")
+    default_world = os.path.join(package_path, "worlds", "obstacles.world")
 
     world = LaunchConfiguration("world")
 
@@ -81,7 +76,15 @@ def generate_launch_description():
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["diff_cont", "--ros-args", "--log-level", logger],
+        arguments=[
+            "diff_cont",
+            "--controller-ros-args",
+            "-r /diff_cont/cmd_vel:=/cmd_vel",
+        ],
+        # ros_arguments=[
+        #     "--log-level",
+        #     logger,
+        # ],
     )
 
     joint_broadcast_spawner = Node(
@@ -107,22 +110,6 @@ def generate_launch_description():
     #     arguments=["/camera/image_raw"],
     # )
 
-    # Code for delaying a node (I haven't tested how effective it is)
-    #
-    # First add the below lines to imports
-    # from launch.actions import RegisterEventHandler
-    # from launch.event_handlers import OnProcessExit
-    #
-    # Then add the following below the current diff_drive_spawner
-    # delayed_diff_drive_spawner = RegisterEventHandler(
-    #     event_handler=OnProcessExit(
-    #         target_action=spawn_entity,
-    #         on_exit=[diff_drive_spawner],
-    #     )
-    # )
-    #
-    # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
-
     # Launch them all!
     return LaunchDescription(
         [
@@ -131,15 +118,24 @@ def generate_launch_description():
                 default_value=["debug"],
                 description="Logging level",
             ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=spawn_entity,
+                    on_exit=[joint_broadcast_spawner],
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=joint_broadcast_spawner,
+                    on_exit=[diff_drive_spawner],
+                )
+            ),
             rsp,
-            # joystick,
-            # twist_mux,
-            ros_gz_bridge,
             world_arg,
             gazebo,
             spawn_entity,
-            diff_drive_spawner,
-            joint_broadcast_spawner,
+            ros_gz_bridge,
+            # joystick,
             # ros_gz_image_bridge,
         ]
     )

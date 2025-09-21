@@ -108,15 +108,5 @@
             },
             "problemMatcher": []
         },
-        {
-            "label": "Teleop twist keyboard",
-            "type": "shell",
-            "command": "bash -c 'cd ${workspaceFolder} && source install/local_setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true'",
-            "presentation": {
-                "reveal": "never",
-                "close": false
-            },
-            "problemMatcher": []
-        }
     ]
 }
